@@ -1,3 +1,7 @@
+/* Team Nomex Blankets
+   Members: Alessandro Cartegni, Yuanchu Liu, Noah Tang
+*/
+
 /*****************************************************
  * class QuickSort
  * (skeleton) <<delete this line if untrue>>
