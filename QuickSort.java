@@ -1,20 +1,23 @@
-/* Team Nomex Blankets
-   Members: Alessandro Cartegni, Yuanchu Liu, Noah Tang
+/*
+Alessandro Cartegni
+APCS2 pd3
+HW14 -- So So Quick
+2017-3-08
 */
+
 
 /*****************************************************
  * class QuickSort
- * (skeleton) <<delete this line if untrue>>
  * Implements quicksort algo to sort an array of ints in place
  *
  * 1. Summary of QuickSort algorithm:
- * QSort(arr): 
+ * QSort(arr): Takes a pivot, puts in proper place. All numbers before smaller and all after larger. Recursion until done.
  *
- * 2a. Worst pivot choice / array state and associated runtime: Min/max chosen as the pivot every time. O(n^2)
+ * 2a. Worst pivot choice / array state and associated runtime: First/last, worst case is O(n^2).
  *
- * 2b. Best pivot choice / array state and associated runtime: Median chosen as the pivot every time. O(log n)
+ * 2b. Best pivot choice / array state and associated runtime: Middle, less chance on O(n^2), more likely O(nlogn).
  *
- * 3. Approach to handling duplicate values in array: Comparison using only less than or not less than.
+ * 3. Approach to handling duplicate values in array: Not sure, mine worked without modification.
  *
  *****************************************************/
 
@@ -59,51 +62,55 @@ public class QuickSort
 	    retArr[i] = (int)( maxVal * Math.random() );
 	return retArr;
     }
-
-    public static int partition( int[] arr, int l, int r, int pivPos){
-	int piv = arr[pivPos];
-	swap(r, pivPos, arr);
-	int s = l;
-	for (int i = l; i < r; i ++){
-	    if(arr[i] < piv){
-		swap(s, i, arr);
-		s ++;
-	    }
-	}
-	swap (r, s, arr);
-	return s;
-    }
     //--------------^  HELPER METHODS  ^--------------
 
 
 
     /*****************************************************
      * void qsort(int[])
-     * @param arr -- array of ints to be sorted in place
+     * @param d -- array of ints to be sorted in place
      *****************************************************/
-    public static void qsort( int[] arr ) { 
-	qsortH(arr, 0, arr.length - 1);
+    public static void qsort( int[] d ) 
+    { 
+	qsorter(d, 0, d.length - 1);
 	
     }
-    
+
     // Thinkers are encouraged to roll their own subroutines.
     // Insert your auxiliary helper methods here.
 
-    public static void qsortH(int[] arr, int l, int r){
-	if (l >= r)
-	    return;
-	int s = partition(arr, l, r, l);
-	if(l < s - 1)
-	    qsortH(arr, l, s-1);
-	if(s < r)
-	    qsortH(arr, s + 1, r);
+    public static int[] qsorter( int[] arr, int left, int right){
+	int pvtPos = (right + left) / 2;
+	if(left < right){
+	    pvtPos = partition(arr, left, right, pvtPos);
+	    qsorter(arr, left, pvtPos - 1);
+	    qsorter(arr, pvtPos + 1, right);
+	    //printArr(arr); diagnostic
+	}
+	
+	return arr;
     }
 
-    
+    public static int partition( int arr[], int a, int b, int c)
+    {
+	int v = arr[c];
+
+	swap( c, b, arr);
+	int s = a;
+
+	for( int i = a; i < b; i++ ) {
+	    if ( arr[i] <= v) {
+		swap( i, s, arr );
+		s++;}
+	}
+	swap(s,b,arr);
+
+	return s;
+    }//end partition
+
     //main method for testing
     public static void main( String[] args ) 
     {
-
 
 	//get-it-up-and-running, static test case:
 	int [] arr1 = {7,1,5,12,3};
@@ -129,10 +136,6 @@ public class QuickSort
 	qsort( arrN );
 	System.out.println("arrN after sort: " );
 	printArr(arrN);
-	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
 
 
 	//get-it-up-and-running, static test case w/ dupes:
@@ -143,7 +146,6 @@ public class QuickSort
 	qsort( arr2 );	
        	System.out.println("arr2 after qsort: " );
 	printArr(arr2);
-
 
 	// arrays of randomly generated ints
 	int[] arrMatey = new int[20];
@@ -161,6 +163,8 @@ public class QuickSort
 	System.out.println("arrMatey after sort: " );
 	printArr(arrMatey);
 	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
+
+
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     }//end main
