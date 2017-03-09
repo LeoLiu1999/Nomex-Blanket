@@ -1,5 +1,5 @@
 /*
-Alessandro Cartegni
+Team Nomex-Blanket: Alessandro Cartegni, Leo Liu, Noah Tang
 APCS2 pd3
 HW14 -- So So Quick
 2017-3-08
