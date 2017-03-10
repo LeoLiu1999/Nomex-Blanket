@@ -1,4 +1,4 @@
-
+Alessandro Cartegni, Leo Liu, Noah Tang
 
 ##Hypothesis
 Best Case:    O(n log n)
